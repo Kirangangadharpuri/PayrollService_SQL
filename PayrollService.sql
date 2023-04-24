@@ -25,3 +25,9 @@ insert into employee_payroll values ('Siddique', 30000.00, '2020-03-24'),
 
 /*  retrieve all data from table */
 select * from employee_payroll    
+
+/* retrieve salary for givan name */
+select Salary from employee_payroll where Name='Ayesha'
+
+select Name,Salary from employee_payroll where StartDate between cast('2020-03-01' as date) and getdate()
+
