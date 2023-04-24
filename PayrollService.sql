@@ -38,3 +38,11 @@ alter table employee_payroll add Gender varchar(1)
 update employee_payroll set Gender='F' where Name='Radha' or Name='Mahek' or Name='Ayesha'    
 update employee_payroll set Gender='M' where Name='Siddique' or Name='Roman'
 
+/* retrive data from table using Agreegate Operators group by Gender */
+
+select Gender,SUM(Salary) from employee_payroll group by Gender /*sum of salary*/
+select Gender,MAX(Salary) from employee_payroll group by Gender /*Maximum salary*/
+select Gender,MIN(Salary) from employee_payroll group by Gender /*Minimum salary*/
+select Gender,AVG(Salary) from employee_payroll group by Gender /*Average of salary*/
+
+
