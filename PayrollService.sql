@@ -31,3 +31,10 @@ select Salary from employee_payroll where Name='Ayesha'
 
 select Name,Salary from employee_payroll where StartDate between cast('2020-03-01' as date) and getdate()
 
+
+/* Add new column in table */
+alter table employee_payroll add Gender varchar(1)
+
+update employee_payroll set Gender='F' where Name='Radha' or Name='Mahek' or Name='Ayesha'    
+update employee_payroll set Gender='M' where Name='Siddique' or Name='Roman'
+
