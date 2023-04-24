@@ -45,4 +45,25 @@ select Gender,MAX(Salary) from employee_payroll group by Gender /*Maximum salary
 select Gender,MIN(Salary) from employee_payroll group by Gender /*Minimum salary*/
 select Gender,AVG(Salary) from employee_payroll group by Gender /*Average of salary*/
 
+/* Extend table with new columns like phone number, address and department UC8 */
 
+Alter table employee_payroll 
+add PhoneNumber varchar(250) 
+
+Alter table employee_payroll 
+add Address varchar(255)
+
+
+Alter table employee_payroll 
+add Department varchar(255)
+
+Alter table employee_payroll 
+add constraint df_Department
+default 'not known' for Department; 
+
+update employee_payroll set PhoneNumber='1234567890', Address='Jintur', Department='Sales' where ID=1
+update employee_payroll set PhoneNumber='2222567890', Address='Parbhani', Department='Management' where ID=2
+update employee_payroll set PhoneNumber='1234567890', Address='Jintur', Department='Quality Check' where ID=3
+update employee_payroll set PhoneNumber='1236667891', Address='Jalna', Department='Sales' where ID=4
+update employee_payroll set PhoneNumber='1234567333', Address='Aurangabad', Department='Developer' where ID=5
+ 
