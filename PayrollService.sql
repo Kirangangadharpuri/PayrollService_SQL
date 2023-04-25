@@ -1,69 +1,57 @@
 
 
 /* Welcome to the PayRoll Service Problem */
+ /*UC11*/
+ create table Employees 
+ (
+ EmployeeID int, 
+ EmployeeName varchar(255), 
+ ComponyId int, 
+ PhoneNumber varchar(20), 
+ Address varchar(50), 
+ Gender varchar(1)
+ ) 
 
-create database payroll_service /*create database*/
+ alter table Employees add StartDate Date
+insert into Employees values (101,'Mahesh Patil',422,'9090909090','Aurangabad','M','2022-04-21')
+insert into Employees values (102,'Sakshi Mehta',422,'9090922222','Pune','F','2018-06-13')
+insert into Employees values (103,'Swati Bulakhe',422,'7777909090','Sangamner','F','2016-12-02')
+insert into Employees values (104,'Saurabh Jain',422,'7933309090','Mumbai','M','2021-11-24')
+insert into Employees values (105,'Manoj Chormare',422,'9082345590','Nashik','M','2020-10-29')
+insert into Employees values (106,'Sharad Kale',422,'9044449090','Verul','M','2021-10-12')
+select * from Employees
 
-select name from sys.databases /*show database */
+create table EmployeeDepartment( EmployeeID int, DepartmentName varchar(50))
+insert into EmployeeDepartment values(101,'Hr')
+insert into EmployeeDepartment values(102,'Sales')
+insert into EmployeeDepartment values(103,'Marketing')
+insert into EmployeeDepartment values(104,'QulityCheck')
+insert into EmployeeDepartment values(105,'Sales')
+insert into EmployeeDepartment values(106,'Marketing')
+select * from EmployeeDepartment
 
-use payroll_service /* use database */
+create table PayRoll
+(EmployeeId int,
+ BasicPay float, 
+ Deduction float, 
+ TaxablePay float, 
+ IncomeTax float, 
+ NetPay float)
 
-/* create table with fields */
-create table employee_payroll
-(
-ID int Primary key identity, 
-Name varchar(255), Salary float, 
-StartDate Date
-)          
+ insert into PayRoll values(101,55000.00,1500.00,150.00,300,3000.00)
+ insert into PayRoll values(102,25000.00,1400.00,100.00,400,2000.00)
+ insert into PayRoll values(103,45000.00,1200.00,120.00,200,3200.00)
+ insert into PayRoll values(104,25000.00,1800.00,110.00,100,4100.00)
+ insert into PayRoll values(105,50000.00,1500.00,140.00,600,5900.00)
+ insert into PayRoll values(106,80000.00,1200.00,150.00,320,3100.00)
+ select * from PayRoll
 
-/* insert new records in table */
-insert into employee_payroll values ('Siddique', 30000.00, '2020-03-24'),
-                                    ('Radha', 35000.00, '2021-06-20'),
-									('Mahek', 25000.00, '2020-10-16'),
-									('Ayesha', 37000.00, '2022-09-30'),
-									('Roman', 42000.00, '2019-01-07')
-
-/*  retrieve all data from table */
-select * from employee_payroll    
-
-/* retrieve salary for givan name */
-select Salary from employee_payroll where Name='Ayesha'
-
-select Name,Salary from employee_payroll where StartDate between cast('2020-03-01' as date) and getdate()
-
-
-/* Add new column in table */
-alter table employee_payroll add Gender varchar(1)
-
-update employee_payroll set Gender='F' where Name='Radha' or Name='Mahek' or Name='Ayesha'    
-update employee_payroll set Gender='M' where Name='Siddique' or Name='Roman'
-
-/* retrive data from table using Agreegate Operators group by Gender */
-
-select Gender,SUM(Salary) from employee_payroll group by Gender /*sum of salary*/
-select Gender,MAX(Salary) from employee_payroll group by Gender /*Maximum salary*/
-select Gender,MIN(Salary) from employee_payroll group by Gender /*Minimum salary*/
-select Gender,AVG(Salary) from employee_payroll group by Gender /*Average of salary*/
-
-/* Extend table with new columns like phone number, address and department UC8 */
-
-Alter table employee_payroll 
-add PhoneNumber varchar(250) 
-
-Alter table employee_payroll 
-add Address varchar(255)
+select Employees.Gender,SUM(BasicPay) from Employees INNER JOIN PayRoll on Employees.EmployeeID=PayRoll.EmployeeID group by Gender /*sum of salary*/
+select Employees.Gender,MIN(BasicPay) from Employees INNER JOIN PayRoll on Employees.EmployeeID=PayRoll.EmployeeID group by Gender /*sum of salary*/
+select Employees.Gender,AVG(BasicPay) from Employees INNER JOIN PayRoll on Employees.EmployeeID=PayRoll.EmployeeID group by Gender /*sum of salary*/
 
 
-Alter table employee_payroll 
-add Department varchar(255)
 
-Alter table employee_payroll 
-add constraint df_Department
-default 'not known' for Department; 
 
-update employee_payroll set PhoneNumber='1234567890', Address='Jintur', Department='Sales' where ID=1
-update employee_payroll set PhoneNumber='2222567890', Address='Parbhani', Department='Management' where ID=2
-update employee_payroll set PhoneNumber='1234567890', Address='Jintur', Department='Quality Check' where ID=3
-update employee_payroll set PhoneNumber='1236667891', Address='Jalna', Department='Sales' where ID=4
-update employee_payroll set PhoneNumber='1234567333', Address='Aurangabad', Department='Developer' where ID=5
- 
+
+
