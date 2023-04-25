@@ -46,12 +46,22 @@ create table PayRoll
  insert into PayRoll values(106,80000.00,1200.00,150.00,320,3100.00)
  select * from PayRoll
 
+ /*UC7*/
 select Employees.Gender,SUM(BasicPay) from Employees INNER JOIN PayRoll on Employees.EmployeeID=PayRoll.EmployeeID group by Gender /*sum of salary*/
 select Employees.Gender,MIN(BasicPay) from Employees INNER JOIN PayRoll on Employees.EmployeeID=PayRoll.EmployeeID group by Gender /*sum of salary*/
 select Employees.Gender,AVG(BasicPay) from Employees INNER JOIN PayRoll on Employees.EmployeeID=PayRoll.EmployeeID group by Gender /*sum of salary*/
 
+/*UC4*/
+select Employees.*,EmployeeDepartment.*,PayRoll.* 
+from ((Employees INNER JOIN EmployeeDepartment 
+on Employees.EmployeeID=EmployeeDepartment.EmployeeID) 
+INNER JOIN PayRoll on Employees.EmployeeID=PayRoll.EmployeeID)
 
-
+/*UC5*/
+select Employees.EmployeeName, PayRoll.BasicPay 
+from PayRoll INNER JOIN Employees 
+on PayRoll.EmployeeId=Employees.EmployeeID 
+where EmployeeName='Sakshi Mehta'
 
 
 
